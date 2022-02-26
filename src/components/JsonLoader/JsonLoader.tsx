@@ -21,8 +21,7 @@ export default function JsonLoader() {
       e.onSuccess("ok");
       const fileread = new FileReader();
       fileread.onload = function (e: any) {
-        var content = e.target.result;
-        var intern = JSON.parse(content);
+        const intern = JSON.parse(e.target.result);
         dispatch(uploadJson(intern));
         history.push('/wallet-connection')
       };

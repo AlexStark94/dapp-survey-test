@@ -2,6 +2,7 @@ export const UPLOAD_JSON = "@actions/upload-json";
 export const DELETE_JSON = "@actions/delete-json";
 export const SET_ANSWERS = "@actions/set-answers";
 export const SET_CONTRACT = "@actions/set-contract";
+export const SET_BALANCE = "@actions/set-balance";
 
 export function uploadJson(fileData) {
   return (dispatch) => {
@@ -21,26 +22,27 @@ export function uploadJson(fileData) {
 
 export function setAnswers(answers) {
   return (dispatch) => {
-    try {
-      dispatch({
-        type: SET_ANSWERS,
-        payload: answers,
-      });
-    } catch (error) {
-      throw error;
-    }
+    dispatch({
+      type: SET_ANSWERS,
+      payload: answers,
+    });
   };
 }
 
 export function setContract(contract) {
   return (dispatch) => {
-    try {
-      dispatch({
-        type: SET_CONTRACT,
-        payload: contract,
-      });
-    } catch (error) {
-      throw error;
-    }
+    dispatch({
+      type: SET_CONTRACT,
+      payload: contract,
+    });
+  };
+}
+
+export function setBalance(balance) {
+  return (dispatch) => {
+    dispatch({
+      type: SET_BALANCE,
+      payload: balance,
+    });
   };
 }

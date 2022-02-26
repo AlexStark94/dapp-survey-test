@@ -1,0 +1,8 @@
+.tag-balance {
+    position: absolute;
+    left: 2rem;
+    top: 2rem;
+    padding: .5rem 1rem;
+    display: flex;
+    align-items: center;
+}

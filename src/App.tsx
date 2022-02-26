@@ -12,10 +12,12 @@ import JsonLoader from "./components/JsonLoader/JsonLoader";
 import WalletConnection from "./components/WalletConnection/WalletConnection";
 import SurveyContainer from "./components/SurveyContainer/SurveyContainer";
 import SubmitSurvey from "./components/SubmitSurvey/SubmitSurvey";
+import Balance from "./components/Balance/Balance";
 
 function App() {
   return (
     <div className="app-container">
+      <Balance />
       <Router>
         <Switch>
           <Route path="/" exact component={JsonLoader} />

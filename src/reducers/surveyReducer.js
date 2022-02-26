@@ -1,10 +1,17 @@
 import { produce } from "immer";
-import { UPLOAD_JSON, DELETE_JSON, SET_ANSWERS, SET_CONTRACT } from "../actions/quizActions";
+import {
+  UPLOAD_JSON,
+  DELETE_JSON,
+  SET_ANSWERS,
+  SET_CONTRACT,
+  SET_BALANCE,
+} from "../actions/quizActions";
 
 const initialState = {
   survey: null,
   answers: null,
-  contract: null
+  contract: null,
+  balance: null,
 };
 
 const surveyReducer = (state = initialState, action) => {
@@ -22,6 +29,11 @@ const surveyReducer = (state = initialState, action) => {
     case SET_CONTRACT: {
       return produce(state, (draft) => {
         draft.contract = action?.payload;
+      });
+    }
+    case SET_BALANCE: {
+      return produce(state, (draft) => {
+        draft.balance = action?.payload;
       });
     }
     case DELETE_JSON: {

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Card, Select, Button, Row } from "antd";
+import { Card, Button, Row } from "antd";
 import { WalletOutlined } from "@ant-design/icons";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router";
@@ -7,7 +7,7 @@ import { toast } from "react-toastify";
 import { ethers } from "ethers";
 
 // Actions
-import { setContract } from "../../actions/quizActions";
+import { setContract, setBalance } from "../../actions/quizActions";
 
 // Styles
 import "./WalletConnection.css";
@@ -15,20 +15,17 @@ import "./WalletConnection.css";
 // Smart Contract ABI
 import Survey from "../../contracts/survey.json";
 
-const { Option } = Select;
-
 declare let window: any;
 
 export default function WalletConnection() {
   const dispatch = useDispatch();
   const { contract } = useSelector((state: any) => state.survey);
-  const [ network, setNetwork ] = useState('');
+  const [network, setNetwork] = useState("");
   const history = useHistory();
 
   useEffect(() => {
-    console.log(contract);
-    if (network === 'ropsten' && contract) {
-      history.push('/survey')
+    if (network === "ropsten" && contract) {
+      history.push("/survey");
     }
   }, [network]);
 
@@ -82,21 +79,29 @@ export default function WalletConnection() {
   };
 
   const fetchSurvey = async () => {
-    let contractAddress = "0x74f0b668ea3053052deaa5eedd1815f579f0ee03";
+    const contractAddress = "0x74f0b668ea3053052deaa5eedd1815f579f0ee03";
     const { ethereum } = window;
 
     if (!ethereum) {
       alert("Please install MetaMask!");
       return;
     }
-
     const provider = new ethers.providers.Web3Provider(ethereum);
     const signer: any = provider.getSigner();
-    const smartContract = new ethers.Contract(contractAddress, Survey, provider);
+    const smartContract = new ethers.Contract(
+      contractAddress,
+      Survey,
+      provider
+    );
+    await signer.getAddress().then(async (address: string) => {
+      await smartContract.balanceOf(address).then(async (balance: any) => {
+        dispatch(setBalance(ethers.utils.formatEther(balance)));
+      });
+    });
     dispatch(setContract(smartContract));
     provider.getNetwork().then((network: any) => {
-      if (network.name === 'ropsten') {
-        toast.success('You are connected with a Ropsten wallet', {
+      if (network.name === "ropsten") {
+        toast.success("You are connected with a Ropsten wallet", {
           position: "top-right",
           autoClose: 5000,
           hideProgressBar: false,
@@ -106,25 +111,21 @@ export default function WalletConnection() {
           progress: undefined,
         });
       } else {
-        toast.error('Please connect a Ropsten network and press "Connect Your Wallet" again', {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        });
+        toast.error(
+          'Please connect a Ropsten network and press "Connect Your Wallet" again',
+          {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          }
+        );
       }
       setNetwork(network.name);
     });
-
-    
-    console.log(smartContract);
-    
-    const surveyName = await smartContract.name();
-    const surveySymbol = await smartContract.symbol();
-    const balance = await smartContract.balanceOf(contractAddress);
   };
 
   return (
