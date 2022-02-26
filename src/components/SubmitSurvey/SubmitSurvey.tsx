@@ -87,7 +87,7 @@ export default function SubmitSurvey() {
 
   const handleGoBack = async () => {
     history.push("/");
-  }
+  };
 
   return (
     <Card className="card-json-uploader-container">
@@ -108,12 +108,7 @@ export default function SubmitSurvey() {
       >
         Submit Survey
       </Button>
-      <Button
-        block
-        shape="round"
-        type="default"
-        onClick={() => handleGoBack()}
-      >
+      <Button block shape="round" type="default" onClick={() => handleGoBack()}>
         Load Another Survey
       </Button>
     </Card>
