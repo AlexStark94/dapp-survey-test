@@ -1,24 +1,40 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+
+// Styles
+import "react-toastify/dist/ReactToastify.css";
+import "antd/dist/antd.css";
+import "./App.css";
+
+// Components
+import JsonLoader from "./components/JsonLoader/JsonLoader";
+import WalletConnection from "./components/WalletConnection/WalletConnection";
+import SurveyContainer from "./components/SurveyContainer/SurveyContainer";
+import SubmitSurvey from "./components/SubmitSurvey/SubmitSurvey";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="app-container">
+      <Router>
+        <Switch>
+          <Route path="/" exact component={JsonLoader} />
+          <Route path="/wallet-connection" exact component={WalletConnection} />
+          <Route path="/survey" exact component={SurveyContainer} />
+          <Route path="/submit-survey" exact component={SubmitSurvey} />
+        </Switch>
+      </Router>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
     </div>
   );
 }

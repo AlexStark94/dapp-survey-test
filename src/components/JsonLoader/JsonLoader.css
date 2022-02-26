@@ -1,0 +1,21 @@
+.card-json-uploader-container {
+  width: 30rem;
+  padding: 3rem 2rem;
+  border: none;
+  border-radius: 30px;
+  box-shadow: -7px 7px 30px #c9c9c9, 7px -7px 30px #ffffff;
+}
+
+.ant-upload.ant-upload-drag {
+  border-color: #2ba69edc;
+  padding: 3rem 5rem;
+}
+
+.ant-upload.ant-upload-drag p.ant-upload-text {
+  color: #03a9f4;
+  font-weight: 500;
+}
+
+.ant-upload.ant-upload-drag p.ant-upload-hint {
+  color: #03a9f4;
+}
